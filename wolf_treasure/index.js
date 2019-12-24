@@ -17,32 +17,44 @@ api.getMe()
     console.log(err);
   });
 
+// treasure - Wolf Treasure
+// laps - Laps
+
+
 api.on('message', function(message) {
   // Received text message
   console.log('message', message);
 
-  // api.sendMessage({
-  //   chat_id: message.chat.id,
-  //   text: 'Привет ' + message.chat.first_name + ' ' + message.chat.last_name
-  // })
-  //   .then(function(data) {
-  //     console.log(util.inspect(data, false, null));
-  //   })
-  //   .catch(function(err) {
-  //     console.log(err);
-  //   });
 
-  api.sendPhoto({
-    chat_id: message.chat.id,
-    caption: 'Привет ' + message.chat.first_name + ' ' + message.chat.last_name,
-    photo: './images/laps.jpg'
-  })
-    .then(function(data) {
-      console.log(util.inspect(data, false, null));
+
+  // if(message && message.entities && message.entities[0] && message.entities[0]['type'] == 'bot_command') {
+  if(message && message.text == '/treasure') {
+    api.sendLocation({
+      chat_id: message.chat.id,
+      latitude: '50.418644',
+      longitude: '30.555229'
     })
-    .catch(function(err) {
-      console.log(err);
-    });
+      .then(function(data) {
+        console.log(util.inspect(data, false, null));
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
+
+  if(message && message.text == '/laps') {
+    api.sendPhoto({
+      chat_id: message.chat.id,
+      caption: '',
+      photo: './images/laps.jpg'
+    })
+      .then(function(data) {
+        console.log(util.inspect(data, false, null));
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+  }
 
 });
 
@@ -67,6 +79,20 @@ api.on('edited.message', function(message) {
 });
 
 api.on('update', function(message) {
+
+  // if(message && message.channel_post) {
+  //   api.sendMessage({
+  //     chat_id: message.channel_post.chat.id,
+  //     text: 'Hello ' + message.channel_post.chat.title
+  //   })
+  //     .then(function(data) {
+  //       console.log(util.inspect(data, false, null));
+  //     })
+  //     .catch(function(err) {
+  //       console.log(err);
+  //     });
+  // }
+
   // Generic update object
   // Subscribe on it in case if you want to handle all possible
   // event types in one callback
